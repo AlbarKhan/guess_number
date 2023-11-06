@@ -132,6 +132,7 @@
     </section>
 
     <script>
+        'use strict';
         let randnum = Math.trunc(Math.random() *20 )+1;
         let Score = 20;
         let highScore=0;
@@ -140,14 +141,19 @@
             document.querySelector(".hint").textContent = message;
         }
 
+        const displayScore = function(score){
+            document.querySelector('.score').textContent = score;
+        }
+
         document.querySelector(".check").addEventListener("click",function(){
 
             let guess = document.querySelector('.guess').value;
+            
             if (guess == randnum) {
                 displayMsg("Correct you were right");
                 document.getElementById("back").style.backgroundColor  = "green";
                 if(Score>highScore){
-                highscore = Score;
+                highScore = Score;
                 document.querySelector(".highScore").textContent =highScore;
                 }
             }
@@ -159,16 +165,13 @@
                 displayMsg("too Low");
                 Score--;
             } 
-
             if(Score == 0 || Score<0){
                 displayMsg("You lost The Game");
-                document.querySelector('.score').textContent = 0;
+                displayScore(0);
                 return;   
             }
-
-            
             document.querySelector('.icon-item').innerHTML = guess;
-            document.querySelector('.score').textContent = Score;
+            displayScore(Score);
         });
 
         document.querySelector('.again').addEventListener("click",function(){
@@ -176,7 +179,7 @@
             Score = 20;
             displayMsg("Start guessing ....");
             document.getElementById("back").style.backgroundColor  = "#222";
-            document.querySelector('.score').textContent = Score;
+            displayScore(Score);s
         });
     </script>
 </body>
