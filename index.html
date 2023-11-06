@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;600&family=Pixelify+Sans:wght@600&family=Work+Sans:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+            font-family: 'Pixelify Sans', sans-serif;
+
+        }
+        body{
+            background-color:#222;
+        }
+        .head{
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 30px;
+        }
+        .head button{
+            background-color: white;
+            height: 51px;
+            width: 181px;
+            font-size: 25px;
+        }
+        .head p {
+            color: white;
+            font-size: 30px;
+        }
+        .heading  h1{
+            color: white;
+            text-align: center;
+            font-size: 50px;
+            margin-bottom: 100px;
+        }
+        .icon{
+            width: 100%;
+            background-color: white;
+            height: 7px;
+            position: relative;
+        }
+        .icon .icon-item{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+            width: 100px;
+            font-size: 60px;
+            background-color: white;
+            position: absolute;
+            top: -43px;
+            left: 46%;
+        }
+        
+        .content{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            align-items: center;
+            width: 100%;
+            margin-top: 150px;
+            color: white;
+        }
+        .userInput{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+            width: 50%;
+            width: 40%;
+        }
+        .userInput input{
+            width: 200px;
+            font-size: 40px;
+            height: 100px;
+        }
+        .userInput button{
+            width: 160px;
+            height: 40px;
+            font-size: 30px;
+            text-align: center;
+        }
+        .result{
+            width: 40%;
+        }
+        .result p{
+            font-size: 30px;
+            margin-top: 30px;
+        }
+        .result span{
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body class="back" id="back">
+    <div class="head">
+        <button type="button" class="again">Again !</button>
+        <p>
+            Between 1 and 20
+        </p>
+    </div>
+    <div class="heading">
+        <h1>Guess My Number</h1>
+    </div>
+    <div class="icon">
+        <div class="icon-item">
+            <i class="fa-solid fa-question"></i>
+        </div>
+    </div>
+    <section class="content">
+         <div class="userInput">
+            <input type="number" maxlength="20" class="guess">
+            <button type="button" class="check"> Check !</button>
+         </div>
+         <div class="result">
+            <p class="hint">Start guessing ...</p>
+            <p>
+                <span>Score: </span>
+                <span class="score">20</span>
+            </p>
+            <p><span>HIgh Scroe: </span> <span class="highScore">0</span></p>
+         </div>
+    </section>
+
+    <script>
+        let randnum = Math.trunc(Math.random() *20 )+1;
+        let Score = 20;
+        let highScore=0;
+
+        const  displayMsg = function(message){
+            document.querySelector(".hint").textContent = message;
+        }
+
+        document.querySelector(".check").addEventListener("click",function(){
+
+            let guess = document.querySelector('.guess').value;
+            if (guess == randnum) {
+                displayMsg("Correct you were right");
+                document.getElementById("back").style.backgroundColor  = "green";
+                if(Score>highScore){
+                highscore = Score;
+                document.querySelector(".highScore").textContent =highScore;
+                }
+            }
+            else if(guess >randnum){
+                displayMsg("too high");
+                Score--;
+            }
+            else if (guess < randnum) {
+                displayMsg("too Low");
+                Score--;
+            } 
+
+            if(Score == 0 || Score<0){
+                displayMsg("You lost The Game");
+                document.querySelector('.score').textContent = 0;
+                return;   
+            }
+
+            
+            document.querySelector('.icon-item').innerHTML = guess;
+            document.querySelector('.score').textContent = Score;
+        });
+
+        document.querySelector('.again').addEventListener("click",function(){
+            randnum = Math.trunc(Math.random() *20 )+1;
+            Score = 20;
+            displayMsg("Start guessing ....");
+            document.getElementById("back").style.backgroundColor  = "#222";
+            document.querySelector('.score').textContent = Score;
+        });
+    </script>
+</body>
+</html>
